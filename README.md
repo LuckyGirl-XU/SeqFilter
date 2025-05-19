@@ -1,11 +1,11 @@
 ## SeqFilter: NeurIPS 2025 Submission
 The **SeqFilter** is designed to address the challenges of complex sequential dynamics in temporal graph learning, which existng temporal graph neural networks (GNNs) achieves MRR performance lower than 60%.
 
-- SeqFilter is built on DyGLib and TGB-Seq for a fair comparison in time efficiency and memory efficiency.
+- SeqFilter is built on [TGB-Seq](https://github.com/TGB-Seq/TGB-Seq.git) for a fair comparison in time efficiency and memory efficiency.
 - Following TGB-Seq, SeqFilter adopts a standardized evaluation protocol with fixed dataset splits, generating 100 negative samples per test instance and computing the MRR metric for consistent and reliable performance assessment.
 
 ## Datasets
-We collects temporal graphs with sequential dynamics from the newly released TGB-Seq benchmark (ICLR 2025). These datasets range in size from 2 million to 34 million events. Processed versions are available on [Google Drive](https://drive.google.com/drive/folders/1qoGtASTbYCO-bSWAzSqbSY2YgHr9hUhK?usp=sharing), and the original raw datasets can be accessed [here](https://drive.google.com/drive/folders/1_WkYtmpGtxxf2XzzLlOzyzn6WUFkiGD-?usp=sharing).
+We collect eight temporal graphs with sequential dynamics from the newly released TGB-Seq benchmark (ICLR 2025). These datasets range in size from 2 million to 34 million events. Processed versions are available on [Google Drive](https://drive.google.com/drive/folders/1qoGtASTbYCO-bSWAzSqbSY2YgHr9hUhK?usp=sharing), and the original raw datasets can be accessed [here](https://drive.google.com/drive/folders/1_WkYtmpGtxxf2XzzLlOzyzn6WUFkiGD-?usp=sharing).
 - ML-20M
 - Taobao
 - Yelp
@@ -30,7 +30,7 @@ We collects temporal graphs with sequential dynamics from the newly released TGB
 ## Usage
 
 ### Quick Start
-Get started with SeqFilter using this quick-start example built on [DyGLib](https://github.com/yule-BUAA/DyGLib). Just follow the commands below to begin your journey with SeqFilter! 🚀🚀🚀
+Get started with SeqFilter using this quick-start example. Just follow the commands below to begin your journey with SeqFilter! 🚀🚀🚀
 
 ```shell
 git clone git@github.com:SeqFilter/SeqFilter.git
