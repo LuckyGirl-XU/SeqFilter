@@ -1,0 +1,7 @@
+{
+    "test metrics": {
+        "average_precision": "0.99529239",
+        "roc_auc": "0.99488809",
+        "mrr": "0.86044663"
+    }
+}

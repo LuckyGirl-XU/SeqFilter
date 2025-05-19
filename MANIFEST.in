@@ -1,0 +1,4 @@
+include pyproject.toml
+recursive-include tgb_seq *
+prune plots
+prune toy_example 
