@@ -11,66 +11,6 @@ import random
 import torch
 import torch.nn as nn
 import numpy as np
-
-
-class MemoryBank(nn.Module):
-
-    def __init__(self, num_nodes: int, memory_dim: int):
-        super(MemoryBank, self).__init__()
-        self.num_nodes = num_nodes
-        self.memory_dim = memory_dim
-
-        self.node_memories = nn.Parameter(torch.zeros((self.num_nodes, self.memory_dim)), requires_grad=False)
-        self.node_last_updated_times = nn.Parameter(torch.zeros(self.num_nodes), requires_grad=False)
-        self.layer_norm = nn.LayerNorm(self.memory_dim)
-        
-        self.__init_memory_bank__()
-
-    def __init_memory_bank__(self):
-        self.node_memories.data.zero_()
-        self.node_last_updated_times.data.zero_()
-
-    def get_memories(self, node_ids):
-        if isinstance(node_ids, np.ndarray):
-            node_ids = torch.from_numpy(node_ids).to(self.node_memories.device)
-        return self.node_memories[node_ids]
-
-    def set_memories(self, node_ids, updated_node_memories):
-        with torch.no_grad():
-            self.node_memories.data[node_ids] = self.layer_norm(updated_node_memories)
-
-    def set_last_update(self, node_ids, new_times):
-        with torch.no_grad():
-            self.node_last_updated_times[node_ids] = new_times
-
-    def get_last_update(self, node_ids):
-        return self.node_last_updated_times[node_ids]
-
-class RhythmMemoryUpdater(nn.Module):
-    def __init__(self, memory_bank: MemoryBank, message_dim: int, memory_dim: int, period: int):
-        super(RhythmMemoryUpdater, self).__init__()
-        self.memory_bank = memory_bank
-        self.period = period
-        self.message_dim = message_dim
-        self.memory_dim = memory_dim
-        
-        self.rhythm_updater = Learnable_Rhythm(message_dim+memory_dim, memory_dim, self.period)
-
-    def update_memory(self, node_ids, messages):
-       
-        
-        old_mem = self.memory_bank.get_memories(node_ids)
-        
-        messages = torch.cat([messages, old_mem], dim =-1)
-
-        
-        new_mem = self.rhythm_updater(messages.unsqueeze(1)).squeeze(1)
-        if new_mem.shape[1] != self.memory_dim:
-            new_mem = new_mem.mean(dim=1) 
-  
-        self.memory_bank.set_memories(node_ids, new_mem)
-
-
     
 class SeqFilter(nn.Module):
     def __init__(self, node_raw_features, edge_raw_features, neighbor_sampler,
@@ -317,5 +257,61 @@ class Learnable_Rhythm(nn.Module):
 
         return rhythm_messages
 
+class MemoryBank(nn.Module):
+
+    def __init__(self, num_nodes: int, memory_dim: int):
+        super(MemoryBank, self).__init__()
+        self.num_nodes = num_nodes
+        self.memory_dim = memory_dim
+
+        self.node_memories = nn.Parameter(torch.zeros((self.num_nodes, self.memory_dim)), requires_grad=False)
+        self.node_last_updated_times = nn.Parameter(torch.zeros(self.num_nodes), requires_grad=False)
+        self.layer_norm = nn.LayerNorm(self.memory_dim)
+        
+        self.__init_memory_bank__()
+
+    def __init_memory_bank__(self):
+        self.node_memories.data.zero_()
+        self.node_last_updated_times.data.zero_()
+
+    def get_memories(self, node_ids):
+        if isinstance(node_ids, np.ndarray):
+            node_ids = torch.from_numpy(node_ids).to(self.node_memories.device)
+        return self.node_memories[node_ids]
+
+    def set_memories(self, node_ids, updated_node_memories):
+        with torch.no_grad():
+            self.node_memories.data[node_ids] = self.layer_norm(updated_node_memories)
+
+    def set_last_update(self, node_ids, new_times):
+        with torch.no_grad():
+            self.node_last_updated_times[node_ids] = new_times
+
+    def get_last_update(self, node_ids):
+        return self.node_last_updated_times[node_ids]
+
+class RhythmMemoryUpdater(nn.Module):
+    def __init__(self, memory_bank: MemoryBank, message_dim: int, memory_dim: int, period: int):
+        super(RhythmMemoryUpdater, self).__init__()
+        self.memory_bank = memory_bank
+        self.period = period
+        self.message_dim = message_dim
+        self.memory_dim = memory_dim
+        
+        self.rhythm_updater = Learnable_Rhythm(message_dim+memory_dim, memory_dim, self.period)
+
+    def update_memory(self, node_ids, messages):
+       
+        
+        old_mem = self.memory_bank.get_memories(node_ids)
+        
+        messages = torch.cat([messages, old_mem], dim =-1)
+
+        
+        new_mem = self.rhythm_updater(messages.unsqueeze(1)).squeeze(1)
+        if new_mem.shape[1] != self.memory_dim:
+            new_mem = new_mem.mean(dim=1) 
+  
+        self.memory_bank.set_memories(node_ids, new_mem)
 
 
