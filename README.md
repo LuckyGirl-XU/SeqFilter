@@ -33,7 +33,7 @@ We collect eight temporal graphs with sequential dynamics from the newly release
 Get started with SeqFilter using this quick-start example. Just follow the commands below to begin your journey with SeqFilter! 🚀🚀🚀
 
 ```shell
-python examples/train_link_prediction.py --dataset_name GoogleLocal --model_name SeqFilter --gpu 0 --batch_size 200 --sample_neighbor_strategy recent --energy_threshold 0.3
+python examples/train_link_prediction.py --dataset_name GoogleLocal --model_name SeqFilter --gpu 0 --energy_threshold 0.3
 ```
 
 ### Dataloader
