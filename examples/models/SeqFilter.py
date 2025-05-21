@@ -7,7 +7,6 @@ from models.modules import TimeEncoder
 from utils.utils import NeighborSampler
 import math
 import random 
-
 import torch
 import torch.nn as nn
 import numpy as np
