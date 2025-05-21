@@ -139,7 +139,7 @@ if __name__ == "__main__":
                                           time_feat_dim=args.time_feat_dim, num_tokens=args.num_neighbors, num_layers=args.num_layers, dropout=args.dropout, device=args.device)
         elif args.model_name == 'SeqFilter':
             dynamic_backbone = SeqFilter(node_raw_features=node_raw_features, edge_raw_features=edge_raw_features, neighbor_sampler=train_neighbor_sampler,
-                                          time_feat_dim=args.time_feat_dim, num_tokens=args.num_neighbors, num_layers=args.num_layers, dropout=args.dropout, tau = args.energy_threshold, rhythm_conv =args.rhythm_Conv, structure_conv =args.structure_Conv, device=args.device)
+                                          time_feat_dim=args.time_feat_dim, num_layers=args.num_layers, dropout=args.dropout, tau = args.energy_threshold, rhythm_conv =args.rhythm_Conv, structure_conv =args.structure_Conv, device=args.device)
             
         elif args.model_name == 'DyGFormer':
             dynamic_backbone = DyGFormer(node_raw_features=node_raw_features, edge_raw_features=edge_raw_features, neighbor_sampler=train_neighbor_sampler,
