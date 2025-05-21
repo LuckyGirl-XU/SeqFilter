@@ -33,7 +33,6 @@ class SeqFilter(nn.Module):
         self.rhythm_conv = rhythm_conv
         self.structure_conv = structure_conv
 
-
         self.num_channels = self.edge_feat_dim
         self.time_encoder = TimeEncoder(time_dim=time_feat_dim, parameter_requires_grad=False)
         
