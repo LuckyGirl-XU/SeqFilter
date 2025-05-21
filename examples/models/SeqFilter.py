@@ -14,7 +14,7 @@ import numpy as np
     
 class SeqFilter(nn.Module):
     def __init__(self, node_raw_features, edge_raw_features, neighbor_sampler,
-                 time_feat_dim, num_tokens, num_layers=1,
+                 time_feat_dim, num_layers=1,
                  dropout=0.1, tau = 0.3, rhythm_conv = 4, structure_conv = 8, device='cpu'):
         super(SeqFilter, self).__init__()
         
@@ -25,7 +25,6 @@ class SeqFilter(nn.Module):
         self.node_feat_dim = self.node_raw_features.shape[1]
         self.edge_feat_dim = self.edge_raw_features.shape[1]
         self.time_feat_dim = time_feat_dim
-        self.num_tokens = num_tokens
         self.num_layers = num_layers
         self.dropout = dropout
         self.device = device
