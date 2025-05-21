@@ -1,7 +1,7 @@
 ## SeqFilter: NeurIPS 2025 Submission
-The **SeqFilter** is designed to address the challenges of complex sequential dynamics in temporal graph learning, which existng temporal graph neural networks (GNNs) achieves MRR performance lower than 60%.
+The SeqFilter is designed to address the challenges of complex sequential dynamics in temporal graph learning, where existing temporal graph neural networks (GNNs) typically achieve MRR performance lower than 60%.
 
-- SeqFilter is built on [TGB-Seq](https://github.com/TGB-Seq/TGB-Seq.git) for a fair comparison in time efficiency and memory efficiency.
+- SeqFilter is built on [TGB-Seq](https://github.com/TGB-Seq/TGB-Seq.git) for a fair time and memory efficiency comparison.
 - Following TGB-Seq, SeqFilter adopts a standardized evaluation protocol with fixed dataset splits, generating 100 negative samples per test instance and computing the MRR metric for consistent and reliable performance assessment.
 
 ## Datasets
@@ -18,7 +18,7 @@ We collect eight temporal graphs with sequential dynamics from the newly release
 
 #### Requirements
 
-- python>=3.9
+- Python>=3.9
 - numpy=1.21.5
 - pandas>=2.2.3
 - pytorch>=2.5.0
@@ -53,7 +53,7 @@ test_negative_samples=data.negative_samples
 ```
 
 ### Evaluator
-Up to now, all the TGB-Seq datasets are evaluated by the MRR metric. The evaluator takes `positive_probabilities` with size as `(batch_size,)` and `negative_probabilities` with size as `(batch_size x number_of_negatives)` as inputs and outputs the rank of eash positive sample with size as `(batch_size)`.
+Up to now, all the TGB-Seq datasets are evaluated by the MRR metric. The evaluator takes `positive_probabilities` with size as `(batch_size,)` and `negative_probabilities` with size as `(batch_size x number_of_negatives)` as inputs and outputs the rank of each positive sample with size as `(batch_size)`.
 ```python
 from tgb_seq.LinkPred.evaluator import Evaluator 
 evaluator=Evaluator()
